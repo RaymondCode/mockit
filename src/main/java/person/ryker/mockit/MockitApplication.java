@@ -1,0 +1,11 @@
+package person.ryker.mockit;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MockitApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(MockitApplication.class, args);
+	}
+}
