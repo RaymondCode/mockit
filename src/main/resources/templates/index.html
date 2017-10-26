@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript"
+            charset="utf-8"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<p id="result-url"></p>
+
+<form id="create-form" method="post">
+    <div>
+        <label>StatusCode</label>
+        <select class="js-example-basic-single" name="status">
+            <option th:each="state : ${httpStatus}" th:text="${state.value()} + ' ' + ${state.getReasonPhrase()}"
+                    th:value="${state.value()}"></option>
+        </select>
+    </div>
+    <div>
+        <label>ContentType</label>
+        <select class="js-example-basic-single" name="contentType">
+            <option th:each="type : ${types}" th:text="${type}"></option>
+        </select>
+        <select class="js-example-basic-single" name="charset">
+            <option th:each="charset : ${charsets}" th:text="${charset}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Body</label>
+        <pre id="editor" style="width: 40%;"></pre>
+        <div class="scrollmargin"></div>
+    </div>
+</form>
+
+<button id="send-btn">Generate HTTP API</button>
+
+<script type="text/javascript">
+    $(function () {
+        $("#send-btn").click(function () {
+            $.post("/api/put",
+                $("#create-form").serializeArray().concat({name: "body", value: editor.getSession().getValue()}),
+                function (data, status) {
+                    $("#result-url").html('<a href="' + data + '" target="blank">' + data + '</a>');
+                });
+        });
+
+        $('.js-example-basic-single').select2();
+
+        var editor = ace.edit("editor");
+        editor.setOptions({
+            autoScrollEditorIntoView: true,
+            minLines: 25,
+            maxLines: 25
+        });
+        editor.getSession().setMode("ace/mode/json");
+        editor.renderer.setScrollMargin(10, 10, 10, 10);
+    });
+</script>
+</body>
+</html>
