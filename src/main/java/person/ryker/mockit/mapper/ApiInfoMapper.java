@@ -25,7 +25,8 @@ public interface ApiInfoMapper {
         @Result(property = "status", column = "status"),
         @Result(property = "contentType", column = "content_type"),
         @Result(property = "body", column = "body"),
+        @Result(property = "createTime", column = "create_time"),
     })
-    @Select("SELECT `id`, `key`, `status`, `content_type`, `body` FROM api_info WHERE `key` = #{key}")
+    @Select("SELECT `id`, `key`, `status`, `content_type`, `body`, `create_time` FROM api_info WHERE `key` = #{key}")
     ApiInfo getByKey(@Param("key") String key);
 }

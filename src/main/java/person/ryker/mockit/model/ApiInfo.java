@@ -1,5 +1,7 @@
 package person.ryker.mockit.model;
 
+import java.util.Date;
+
 /**
  * @author raymondcode raymondcode@outlook.com
  * @date 2017/10/23
@@ -14,6 +16,8 @@ public class ApiInfo {
     private String contentType;
 
     private byte[] body;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -53,5 +57,13 @@ public class ApiInfo {
 
     public void setBody(byte[] body) {
         this.body = body;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
