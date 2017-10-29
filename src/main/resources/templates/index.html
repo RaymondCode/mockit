@@ -7,49 +7,165 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet"/>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css"/>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css"/>
+    <!--<![endif]-->
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript"
             charset="utf-8"></script>
-    <title>Title</title>
+    <style>
+        body {
+            min-width: 320px;
+            background-color: #fff;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            /*color: rgb(75, 75, 75);*/
+        }
+
+        h3 {
+            font-size: 1.25em;
+        }
+
+        h4 {
+            font-size: 1.125em;
+        }
+
+        a {
+            color: #3b8bba; /* block-background-text-normal */
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #265778; /* block-normal-text-normal */
+        }
+
+        dt {
+            font-weight: bold;
+        }
+
+        dd {
+            margin: 0 0 10px 0;
+        }
+
+        .info {
+            background: #373e40; /* same color as selected state on site menu */
+            padding: 1em 1em;
+            margin-bottom: 2em;
+            color: #00b0f0;
+        }
+
+        .normal-info {
+            background: #42b8dd; /* same color as selected state on site menu */
+            margin: 1em 0;
+            padding: 1em 1em;
+            color: #373e40;
+        }
+
+        .normal-info a, .normal-info a:visited {
+            color: rgb(255, 255, 255);
+        }
+
+        .normal-info a:hover {
+            color: rgb(160, 240, 255);
+        }
+
+        hr.line {
+            height: 10px;
+            border: 0;
+            box-shadow: 0 10px 10px -10px #8c8b8b inset;
+        }
+
+        footer p {
+            font-size: 0.75em;
+        }
+    </style>
+    <title>Mock It</title>
 </head>
+
 <body>
 
-<p id="result-url"></p>
+<div class="pure-g info">
+    <div class="pure-u-2-24 pure-u-lg-1-5"></div>
+    <div class="pure-u-20-24 pure-u-lg-3-5">
+        <h1>Mock It</h1>
+        <p>Mock API for testing</p>
+    </div>
+    <div class="pure-u-2-24 pure-u-lg-1-5"></div>
+</div>
 
-<form class="pure-form pure-form-aligned" id="create-form" method="post">
-    <div class="pure-control-group">
-        <label>StatusCode</label>
-        <select class="js-example-basic-single" name="status">
-            <option th:each="state : ${httpStatus}" th:text="${state.value()} + ' ' + ${state.getReasonPhrase()}"
-                    th:value="${state.value()}"></option>
-        </select>
+<div class="pure-g">
+    <div class="pure-u-2-24 pure-u-lg-1-5"></div>
+    <div class="pure-u-20-24 pure-u-lg-3-5">
+        <form class="pure-form pure-form-aligned" id="create-form" method="post">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label>StatusCode</label>
+                    <select class="js-example-basic-single" name="status">
+                        <option th:each="state : ${httpStatus}"
+                                th:text="${state.value()} + ' ' + ${state.getReasonPhrase()}"
+                                th:value="${state.value()}"></option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <label>ContentType</label>
+                    <select class="js-example-basic-single" name="contentType">
+                        <option th:each="type : ${types}" th:text="${type}"></option>
+                    </select>
+                    <select class="js-example-basic-single" name="charset">
+                        <option th:each="charset : ${charsets}" th:text="${charset}"></option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <label for="editor">Body</label>
+                    <div id="editor" class="pure-u-3-5" style="border: 1px solid lightgray;"/>
+                </div>
+                <div class="pure-controls">
+                    <button type="button" id="send-btn" class="pure-button pure-button-primary">Mock It</button>
+                </div>
+            </fieldset>
+        </form>
     </div>
-    <div class="pure-control-group">
-        <label>ContentType</label>
-        <select class="js-example-basic-single" name="contentType">
-            <option th:each="type : ${types}" th:text="${type}"></option>
-        </select>
-        <select class="js-example-basic-single" name="charset">
-            <option th:each="charset : ${charsets}" th:text="${charset}"></option>
-        </select>
-    </div>
-    <div class="pure-control-group">
-        <label for="editor">Body</label>
-        <div id="editor" class="pure-u-3-5"/>
-    </div>
-</form>
+    <div class="pure-u-2-24 pure-u-lg-1-5"></div>
+</div>
 
-<button id="send-btn">Generate HTTP API</button>
+<div class="pure-g">
+    <div class="pure-u-1-1">
+        <p id="result-url" class="normal-info" style="text-align: center"></p>
+    </div>
+</div>
+
+<hr class="line"/>
+
+<footer>
+    <div class="pure-g">
+        <div class="pure-u-18-24"></div>
+        <div class="pure-u-6-24">
+            <p>Made By RaymondCode</p>
+        </div>
+    </div>
+</footer>
 
 <script type="text/javascript">
     $(function () {
+        $("#result-url").hide();
+
         $("#send-btn").click(function () {
+            $("#send-btn").attr("disabled", true);
             $.post("/api/put",
                 $("#create-form").serializeArray().concat({name: "body", value: editor.getSession().getValue()}),
                 function (data, status) {
-                    $("#result-url").html('<a href="' + data + '" target="blank">' + data + '</a>');
+                    $("#result-url").html("<b>Success!  Better Call: </b>" + '<a href="' + data + '" target="blank">' + data + '</a>');
+                    $("#result-url").show();
+                    $("#send-btn").attr("disabled", false);
                 });
         });
 
@@ -59,7 +175,9 @@
         editor.setOptions({
             autoScrollEditorIntoView: true,
             minLines: 25,
-            maxLines: 25
+            maxLines: 25,
+            showLineNumbers: false,
+            showGutter: false
         });
         editor.getSession().setMode("ace/mode/json");
         editor.renderer.setScrollMargin(10, 10, 10, 10);
