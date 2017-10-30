@@ -1,5 +1,7 @@
 package person.ryker.mockit.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
 
 /**
@@ -18,6 +20,15 @@ public class ApiInfo {
     private byte[] body;
 
     private Date createTime;
+
+    public static ApiInfo fromCreateRequest(CreateApiRequest request) {
+        ApiInfo apiInfo = new ApiInfo();
+        apiInfo.setStatus(request.getStatus());
+        apiInfo.setContentType(request.getContentType() + (StringUtils.isEmpty(request.getCharset()) ? "" : (";charset=" + request.getCharset())));
+        apiInfo.setBody(request.getBody());
+
+        return apiInfo;
+    }
 
     public Integer getId() {
         return id;

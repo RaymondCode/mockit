@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import person.ryker.mockit.model.ApiInfo;
+import person.ryker.mockit.model.CreateApiRequest;
 import person.ryker.mockit.service.ApiService;
 
 import javax.annotation.Resource;
@@ -26,9 +27,10 @@ public class ApiController {
 
     @RequestMapping("/call/{key}")
     public void call(HttpServletResponse response, @PathVariable String key)
-        throws IOException {
+            throws IOException {
         ApiInfo apiInfo = apiService.callApi(key);
 
+        response.setStatus(apiInfo.getStatus());
         response.setContentType(apiInfo.getContentType());
         response.getOutputStream().write(apiInfo.getBody());
     }
@@ -36,7 +38,7 @@ public class ApiController {
     @RequestMapping("/putFile")
     @ResponseBody
     public Object putFile(HttpServletRequest request, Integer status, String contentType, MultipartFile file)
-        throws IOException {
+            throws IOException {
         ApiInfo apiInfo = new ApiInfo();
 
         apiInfo.setStatus(status);
@@ -50,9 +52,10 @@ public class ApiController {
 
     @RequestMapping("/put")
     @ResponseBody
-    public Object put(HttpServletRequest request, ApiInfo apiInfo) throws IOException {
+    public Object put(HttpServletRequest request, CreateApiRequest apiRequest) throws IOException {
         String rootPath = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-        String key = apiService.addApi(apiInfo);
+        String key = apiService.addApi(ApiInfo.fromCreateRequest(apiRequest));
+
         return rootPath + "/api/call/" + key;
     }
 }

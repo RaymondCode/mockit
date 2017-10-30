@@ -109,7 +109,7 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label>StatusCode</label>
-                    <select class="js-example-basic-single" name="status">
+                    <select id="statusCode" class="js-example-basic-single" name="status">
                         <option th:each="state : ${httpStatus}"
                                 th:text="${state.value()} + ' ' + ${state.getReasonPhrase()}"
                                 th:value="${state.value()}"></option>
@@ -170,6 +170,9 @@
         });
 
         $('.js-example-basic-single').select2();
+
+        $('#statusCode').select2().val(200);
+        $('#statusCode').change();
 
         var editor = ace.edit("editor");
         editor.setOptions({
