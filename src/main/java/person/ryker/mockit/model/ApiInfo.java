@@ -1,8 +1,9 @@
 package person.ryker.mockit.model;
 
-import org.apache.commons.lang3.StringUtils;
-
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author raymondcode raymondcode@outlook.com
@@ -21,11 +22,14 @@ public class ApiInfo {
 
     private Date createTime;
 
-    public static ApiInfo fromCreateRequest(CreateApiRequest request) {
+    public static ApiInfo fromCreateRequest(CreateApiRequest request) throws UnsupportedEncodingException {
         ApiInfo apiInfo = new ApiInfo();
         apiInfo.setStatus(request.getStatus());
-        apiInfo.setContentType(request.getContentType() + (StringUtils.isEmpty(request.getCharset()) ? "" : (";charset=" + request.getCharset())));
-        apiInfo.setBody(request.getBody());
+        apiInfo.setContentType(request.getContentType() + (StringUtils.isEmpty(request.getCharset()) ? ""
+            : (";charset=" + request.getCharset())));
+
+        String body = new String(request.getBody());
+        apiInfo.setBody(body.getBytes(request.getCharset()));
 
         return apiInfo;
     }

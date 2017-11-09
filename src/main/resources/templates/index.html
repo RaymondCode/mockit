@@ -126,7 +126,7 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="editor">Body</label>
-                    <div id="editor" class="pure-u-3-5" style="border: 1px solid lightgray;"/>
+                    <div id="editor" class="pure-u-3-5" style="font-family:monospace; border: 1px solid lightgray;"></div>
                 </div>
                 <div class="pure-controls">
                     <button type="button" id="send-btn" class="pure-button pure-button-primary">Mock It</button>
@@ -182,6 +182,7 @@
             showLineNumbers: false,
             showGutter: false
         });
+
         editor.getSession().setMode("ace/mode/json");
         editor.renderer.setScrollMargin(10, 10, 10, 10);
     });
