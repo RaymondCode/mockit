@@ -69,7 +69,7 @@
                 <includes>
                     <include>**/Dockerfile</include>
                 </includes>
-                <targetPath>target/docker</targetPath>
+                <targetPath>${project.build.directory}/docker</targetPath>
             </resource>
         </resources>
         <plugins>
@@ -82,7 +82,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>target/docker</dockerDirectory>
+                    <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
