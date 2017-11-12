@@ -86,7 +86,7 @@
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
-                            <directorky>${project.build.directory}</directorky>
+                            <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
