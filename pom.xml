@@ -71,6 +71,9 @@
                 </includes>
                 <targetPath>${project.build.directory}/docker</targetPath>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <plugins>
             <plugin>
