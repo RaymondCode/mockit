@@ -1,0 +1,58 @@
+body {
+    min-width: 320px;
+    background-color: #fff;
+    color: #777;
+    line-height: 1.6;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3em;
+    line-height: 1em;
+    letter-spacing: -2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+a {
+    color: #3b8bba; /* block-background-text-normal */
+    text-decoration: none;
+}
+
+a:visited {
+    color: #265778; /* block-normal-text-normal */
+}
+
+.info {
+    background: #373e40; /* same color as selected state on site menu */
+    padding: 1em 1em;
+    margin-bottom: 2em;
+    color: #00b0f0;
+}
+
+.normal-info {
+    background: #42b8dd; /* same color as selected state on site menu */
+    margin: 1em 0;
+    padding: 1em 1em;
+    color: #373e40;
+}
+
+.normal-info a, .normal-info a:visited {
+    color: rgb(255, 255, 255);
+}
+
+.normal-info a:hover {
+    color: rgb(160, 240, 255);
+}
+
+hr.line {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+footer p {
+    font-size: 0.75em;
+}

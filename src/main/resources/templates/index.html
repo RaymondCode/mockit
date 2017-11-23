@@ -18,76 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript"
             charset="utf-8"></script>
-    <style>
-        body {
-            min-width: 320px;
-            background-color: #fff;
-            color: #777;
-            line-height: 1.6;
-        }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: bold;
-            /*color: rgb(75, 75, 75);*/
-        }
-
-        h3 {
-            font-size: 1.25em;
-        }
-
-        h4 {
-            font-size: 1.125em;
-        }
-
-        a {
-            color: #3b8bba; /* block-background-text-normal */
-            text-decoration: none;
-        }
-
-        a:visited {
-            color: #265778; /* block-normal-text-normal */
-        }
-
-        dt {
-            font-weight: bold;
-        }
-
-        dd {
-            margin: 0 0 10px 0;
-        }
-
-        .info {
-            background: #373e40; /* same color as selected state on site menu */
-            padding: 1em 1em;
-            margin-bottom: 2em;
-            color: #00b0f0;
-        }
-
-        .normal-info {
-            background: #42b8dd; /* same color as selected state on site menu */
-            margin: 1em 0;
-            padding: 1em 1em;
-            color: #373e40;
-        }
-
-        .normal-info a, .normal-info a:visited {
-            color: rgb(255, 255, 255);
-        }
-
-        .normal-info a:hover {
-            color: rgb(160, 240, 255);
-        }
-
-        hr.line {
-            height: 10px;
-            border: 0;
-            box-shadow: 0 10px 10px -10px #8c8b8b inset;
-        }
-
-        footer p {
-            font-size: 0.75em;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/base.css"/>
     <title>Mock It</title>
 </head>
 
@@ -126,7 +58,8 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="editor">Body</label>
-                    <div id="editor" class="pure-u-3-5" style="font-family:monospace; border: 1px solid lightgray;"></div>
+                    <div id="editor" class="pure-u-3-5"
+                         style="font-family:monospace; border: 1px solid lightgray;"></div>
                 </div>
                 <div class="pure-controls">
                     <button type="button" id="send-btn" class="pure-button pure-button-primary">Mock It</button>
@@ -154,38 +87,6 @@
     </div>
 </footer>
 
-<script type="text/javascript">
-    $(function () {
-        $("#result-url").hide();
-
-        $("#send-btn").click(function () {
-            $("#send-btn").attr("disabled", true);
-            $.post("/api/put",
-                $("#create-form").serializeArray().concat({name: "body", value: editor.getSession().getValue()}),
-                function (data, status) {
-                    $("#result-url").html("<b>Success!  Better Call: </b>" + '<a href="' + data + '" target="blank">' + data + '</a>');
-                    $("#result-url").show();
-                    $("#send-btn").attr("disabled", false);
-                });
-        });
-
-        $('.js-example-basic-single').select2();
-
-        $('#statusCode').select2().val(200);
-        $('#statusCode').change();
-
-        var editor = ace.edit("editor");
-        editor.setOptions({
-            autoScrollEditorIntoView: true,
-            minLines: 25,
-            maxLines: 25,
-            showLineNumbers: false,
-            showGutter: false
-        });
-
-        editor.getSession().setMode("ace/mode/json");
-        editor.renderer.setScrollMargin(10, 10, 10, 10);
-    });
-</script>
+<script src="/js/index.js"></script>
 </body>
 </html>
